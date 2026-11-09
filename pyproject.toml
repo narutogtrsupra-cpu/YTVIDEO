@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "telegram-phone-player"
+version = "0.1.0"
+description = "A bounded YouTube player for a Telegram group call, hosted on Linux or Android via proot"
+requires-python = ">=3.11,<3.15"
+dependencies = [
+  "py-tgcalls[telethon]==3.0.0",
+  "ntgcalls==3.0.6",
+  "telethon>=1.45,<2",
+  "yt-dlp[default]>=2026.10.26",
+  "python-dotenv>=1.0,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.24,<2", "ruff>=0.14,<1"]
+
+[project.scripts]
+vc-player = "vcplayer.__main__:main"
+vc-login = "vcplayer.login:main"
+
+[tool.setuptools.packages.find]
+include = ["vcplayer*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
